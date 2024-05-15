@@ -32,6 +32,7 @@ mod files;
 mod git;
 mod init;
 mod interdiff;
+mod isl;
 mod log;
 mod merge;
 mod r#move;
@@ -146,6 +147,7 @@ enum Command {
     Version(version::VersionArgs),
     #[command(subcommand)]
     Workspace(workspace::WorkspaceCommand),
+    Isl(isl::IslArgs),
 }
 
 /// A dummy command that accepts any arguments
@@ -212,6 +214,7 @@ pub fn run_command(ui: &mut Ui, command_helper: &CommandHelper) -> Result<(), Co
         #[cfg(feature = "bench")]
         Command::Bench(sub_args) => bench::cmd_bench(ui, command_helper, sub_args),
         Command::Debug(sub_args) => debug::cmd_debug(ui, command_helper, sub_args),
+        Command::Isl(sub_args) => isl::cmd_isl(ui, command_helper, sub_args),
     }
 }
 
